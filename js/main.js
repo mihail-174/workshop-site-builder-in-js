@@ -49,15 +49,16 @@ const createHeader = (param) => {
 	}
 
 	if (param.header.menu) {
-		const menuWrapper = getElement('nav', ['menu-link']);
-		const allMenu = param.header.menu.map(item => {
-			const menuLink = getElement('a', ['menu-link']);
-			menuLink.href = item.link;
-			menuLink.textContent = item.title;
-			return menuLink;
+		const nav = getElement('nav', ['menu-link']);
+		const allMenuLink = param.header.menu.map(item => {
+			const link = getElement('a', ['menu-link'], {
+				href: item.link,
+				textContent: item.title,
+			});
+			return link;
 		});
-		menuWrapper.append(...allMenu);
-		wrapper.append(menuWrapper);
+		nav.append(...allMenuLink);
+		wrapper.append(nav);
 	}
 
 	if (param.header.social) {
@@ -86,7 +87,7 @@ const movieConstructor = (selector, options) => {
 	if (options.header) {
 		app.append(createHeader(options));
 	}
-	document.querySelector("title").textContent = options.title;
+	document.title = options.title;
 };
 
 movieConstructor(".app", {
